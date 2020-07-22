@@ -38,19 +38,11 @@
   <!--/Nav-->
 
   <!--carousel-->
-<?php include ("carousel.php");?>
+<?php include ("service_top.php");?>
   <!--/carousel-->
-
-  
-  <!--mission-->
-      <?php include ("about_mission.php");?>
-  <!--/misssion-->
-      <?php include ("mini_services.php");?>
-
-  <!--specialization-->
-      <?php include ("spec.php");?>
-  <!--/specialization-->
-
+  <!--service_main-->
+    <?php include ("services_main.php");?>
+  <!--/service_main-->
   <!--footer--> 
     <?php include ("footer.php");?>
   <!--/footer-->

@@ -1,8 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+.row::after{
+  content: "";
+  clear: both;
+  display: block;
+}
+[class*="col-"]{
+  float: left;
+  padding: 0;
+  width:100%
+}
+@import url('https://fonts.googleapis.com/css?family=orbitron&display=swap');
 html{
   width: 100%;
 }
 body{
-  margin: 1em
+  margin: 0em
 }
 h1,h2,h3,h4,h5,h6,a,P{
  font-family: 'Playfair Display', serif;
@@ -15,12 +29,15 @@ h1,h2,h3,h4,h5,h6,a,P{
 .nav-link , .navbar-brand{ color: #feb711; cursor: pointer;}
 
 .nav-link{ margin-right: 1em !important;}
+.nav-link>i{
+  margin-right: 1em
+}
 
 .nav-link:hover{ background: #feb711; color: #2B2623; }
 
 .navbar-collapse{ justify-content: flex-end;}
 .navbar-toggler{  
-  background:#fff !important;
+  background:#2b2623 !important;
 }
 
  .custom-toggler.navbar-toggler { 
@@ -34,33 +51,68 @@ h1,h2,h3,h4,h5,h6,a,P{
 "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(254, 183, 17)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
         }
 .header{
-  background-image: url('header2.jpg');
+background-image: url('header2.jpg');
   background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+background-repeat: no-repeat;
+background-size: 100%; 
+  height: 45em;
 }
 .overlay{
- position: absolute;
- min-height: 100%;
+ position: relative;
+ height: 50%;
  min-width: 100%;
  left: 0;
  top: 0;
+  margin-top: 0em
 }
 .overlay>h1{
   margin-top: 7em;
   color: black;
   margin-left: 2em
 }
+.sign>h1{
+  font-size: .7em;
+  font-family: 'orbitron' , cursive;
+}
+.sign {
+  position: relative;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 50%;
+  height: 50%;
+  background-image: radial-gradient(
+    ellipse 50% 35% at 50% 50%,
+    #feb711,
+    transparent
+  );
+  transform: translate(-50%, -50%);
+  letter-spacing: 2;
+  left: 40%;
+  top: 35%;
+  font-family: 'orbitron', cursive;
+  text-transform: uppercase;
+  font-size: 6em;
+  color: #feb711;
+  text-shadow: 0 0 0.6rem #fffde6, 0 0 1.5rem #fff565,
+    -0.2rem 0.1rem 1rem #fff565, 0.2rem 0.1rem 1rem #fff565,
+    0 -0.5rem 2rem #feb711, 0 0.5rem 3rem #feb711;
+  animation: shine 2s forwards, flicker 3s infinite;
+}
+
+
+
 .about_vision{
   width: 100%;
-  margin: 1em auto;
+  margin:auto;
 }
 .about{
- margin:1em 0em 0em 0em;
+ margin:0em 0em 0em 0em;
  padding: 1em;
  max-width: 100%;
  background-color:#2B2623;
  color: #feb711;
+  text-align: center
 
 }
 .about>h2{
@@ -74,7 +126,8 @@ h1,h2,h3,h4,h5,h6,a,P{
   max-width: 100%;
   margin: auto;
   background-color: #feb711;
-  color: #2B2623
+  color: #2B2623;
+  text-align: center
 }
 .vision>h2{
  color:#2B2623;
@@ -125,7 +178,70 @@ team{
  border-bottom-left-radius: 93%;
  transition:.3s ease-in-out;
 }
-
+.about_content{
+  width: 100%;
+  margin: auto
+}
+.value{
+    background-image: url('core.jpg');
+background-repeat: no-repeat;
+background-size: 100%;
+  height: 9em;
+  text-align: center;
+  background-color: black;
+  }
+.value>h2{
+  color: #feb711;
+  width: 100%;
+  margin: 2em auto
+}
+.left{
+  background-color: #feb711;
+  text-align: center;
+}
+.right{
+  background-color: #2b2623;
+  color: #feb711;
+  text-align: center
+}
+.about_header{
+background-image: url('header_about.jpg');
+  background-attachment: fixed;
+background-repeat: no-repeat;
+background-size: 100%; 
+  height: 45em;
+}
+.controls{
+ margin-top:7em;
+  width: 90%;
+  
+}
+.form{
+  margin-top: 7em
+}
+.service_top{
+  margin-top: 5em
+}
+.service_top>h2{
+  text-align: center;
+  border-bottom: 3px solid #feb711;
+  padding: 2em
+}
+.service_top>h3,.service_top>p{
+  text-align: center;
+  margin-bottom: 1em;
+  font-weight: 7em;
+ color: gray
+}
+.services_main>.col-lg-6{
+  border: 2px solid #feb711;
+  padding: 2em;
+  color: gray
+}
+.services_main>.col-lg-6>h4{
+  text-align: center;
+  margin-bottom: 2em
+}
 footer{
   background-color:#2B2623;
   color:#feb711
@@ -135,4 +251,189 @@ footer{
   }
 .mt-3>p>a{
   color: #feb711
+}
+@media (max-width:600px){
+  .header,.about_header{
+    height: 11.5em;
+    margin-top: 1em
+  }
+}
+@media (min-width:601px) and (max-width:768px){
+  .header,.about_header{
+    height: 30em;
+  }
+}
+@media (min-width:769px) and (max-width:992px){
+  .header,.about_header{
+    height: 34em;
+  }
+}
+
+@keyframes blink {
+  0%,
+  22%,
+  36%,
+  75% {
+    color: #ffe6ff;
+    text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #fff565,
+      -0.2rem 0.1rem 1rem #fff565, 0.2rem 0.1rem 1rem #fff565,
+      0 -0.5rem 2rem #feb711, 0 0.5rem 3rem #feb711;
+  }
+  28%,
+  33% {
+    color: #fff565;
+    text-shadow: none;
+  }
+  82%,
+  97% {
+    color: #feb711;
+    text-shadow: none;
+  }
+}
+
+.flicker {
+  animation: shine 2s forwards, blink 3s 2s infinite;
+}
+
+.fast-flicker {
+  animation: shine 2s forwards, blink 10s 1s infinite;
+}
+
+@keyframes shine {
+  0% {
+    color: #feb711;
+    text-shadow: none;
+  }
+  100% {
+    color: #feb711;
+    text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #fff565,
+      -0.2rem 0.1rem 1rem #fff565, 0.2rem 0.1rem 1rem #fff565,
+      0 -0.5rem 2rem #feb711, 0 0.5rem 3rem #feb711;
+  }
+}
+
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+
+  4% {
+    opacity: 0.9;
+  }
+
+  6% {
+    opacity: 0.85;
+  }
+
+  8% {
+    opacity: 0.95;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  11% {
+    opacity: 0.922;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  14% {
+    opacity: 0.95;
+  }
+
+  16% {
+    opacity: 0.98;
+  }
+
+  17% {
+    opacity: 0.9;
+  }
+
+  19% {
+    opacity: 0.93;
+  }
+
+  20% {
+    opacity: 0.99;
+  }
+
+  24% {
+    opacity: 1;
+  }
+
+  26% {
+    opacity: 0.94;
+  }
+
+  28% {
+    opacity: 0.98;
+  }
+
+  37% {
+    opacity: 0.93;
+  }
+
+  38% {
+    opacity: 0.5;
+  }
+
+  39% {
+    opacity: 0.96;
+  }
+
+  42% {
+    opacity: 1;
+  }
+
+  44% {
+    opacity: 0.97;
+  }
+
+  46% {
+    opacity: 0.94;
+  }
+
+  56% {
+    opacity: 0.9;
+  }
+
+  58% {
+    opacity: 0.9;
+  }
+
+  60% {
+    opacity: 0.99;
+  }
+
+  68% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.9;
+  }
+
+  72% {
+    opacity: 0.95;
+  }
+
+  93% {
+    opacity: 0.93;
+  }
+
+  95% {
+    opacity: 0.95;
+  }
+
+  97% {
+    opacity: 0.93;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

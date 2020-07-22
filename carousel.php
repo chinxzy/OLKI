@@ -1,7 +1,5 @@
-<header class="header">
-<div class="overlay">
-   <h1>WELCOME TO <br>
-    OLKI ELECTROMECHANICAL NIG.LTD
-    </h1>
+<div class="header">
+<div class="sign overlay">
+      <h1><span class="fast-flicker">Welcome to</span>  <span class="flicker">Olki</span></h1>
+    </div>
 </div>
-</header>

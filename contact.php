@@ -36,21 +36,11 @@
     </div>
   </nav> 
   <!--/Nav-->
-
-  <!--carousel-->
-<?php include ("carousel.php");?>
-  <!--/carousel-->
-
   
-  <!--mission-->
-      <?php include ("about_mission.php");?>
-  <!--/misssion-->
-      <?php include ("mini_services.php");?>
-
-  <!--specialization-->
-      <?php include ("spec.php");?>
-  <!--/specialization-->
-
+  <!--form-->
+      <?php include ("contact_form.php");?>
+  <!--/form-->
+    
   <!--footer--> 
     <?php include ("footer.php");?>
   <!--/footer-->
@@ -68,6 +58,6 @@
     <script src= 
  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"> 
   </script>
-  
+  <script src="inlcudes/contact.js"></script>
   </body>
 </html>

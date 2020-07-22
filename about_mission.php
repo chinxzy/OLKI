@@ -1,4 +1,4 @@
-<div class="row about_vision">
+<div class="row about_vision m-auto">
    <div class="col-lg-6 col-md-6 col-sm-12 about">
         <h2>ABOUT US</h2>
         <p>OLKI   ELECTROMECHANICAL   NIG.LTD.   Is   an   indigenous   Electrical/Mechanical Engineering  Company
