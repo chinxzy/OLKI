@@ -22,7 +22,7 @@
         <br>utilizing  manpower  and  CURRENT TECHNOLOGY”</br></p>
    </div>
   </div>
-  <div class="row about_content">
+  <div class="row about_content m-auto">
     <div class="value col-lg-12 col-md-12 col-sm-12">
         <h2 class="overlay">OUR CORE VALUES</h2>
     </div>
