@@ -1,54 +1,79 @@
 <?php
- $from ='Demo contact form <demo@domain.com>';
-
- $sendTo = 'Demo contact form <demo@domain.com>';
-
- $subject = ' New message from contac form';
-
- $fields = array( 'name' => 'Name', 'surname' =>'Surname', 'phone' => 'Phone', 'email' => 'Email', 'message' => 'Message');
-
-$okMessage = 'Message delievered successfully. Thank you, we will get back to you soon.';
-
-$errorMessage ='There was an error while submitting form';
-
-
-error_reporting(E_ALL & E_NOTICE);
-try {
-    if(count($_POST)== 0) throw new \Exception('form is empty');
-
-    $emailText = "You have a new message from your contact form\n==================================\n";
-
-    foreach ($$_POST as $key => $value) {
-        if (isset($fields[$key])){
-            $emailText .= "$fields[$key]: $value\n";
-        }
+if($_POST) {
+    $name = "";
+    $surname= "";
+    $email = "";
+    $need = "";
+    $message = "";
+    $email_body = "<div>";
+      
+    if(isset($_POST['name'])) {
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        $email_body .= "<div>
+                           <label><b>First Name:</b></label>&nbsp;<span>".$name."</span>
+                        </div>";
+    }
+ 
+    if(isset($_POST['surname'])) {
+        $name = filter_var($_POST['surname'], FILTER_SANITIZE_STRING);
+        $email_body .= "<div>
+                           <label><b>Last Name:</b></label>&nbsp;<span>".$surname."</span>
+                        </div>";
     }
 
-    $headers = array('Content-Type: text/plain; charset="UTF-8;',
-    'From: ' . $from,
-    'Reply-To: ' . $from,
-    'Return-Path: ' . $from,
-);
-
-mail($sendTo, $subject, $emailText, implode("\n", $headers));
-
-$responseArray = array('type' => 'success', 'message' => $okMessage);
-}
- catch (\Throwable $th) {
-    $responseArray = array('type' => 'danger', 'message' => $errorMessage);
-}
-
-
-// if requested by AJAX request return JSON response
-if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    $encoded = json_encode($responseArray);
-
-    header('Content-Type: application/json');
-
-    echo $encoded;
-}
-// else just display the message
-else {
-    echo $responseArray['message'];
+    if(isset($_POST['email'])) {
+        $visitor_email = str_replace(array("\r", "\n", "%0a", "%0d"), '', $_POST['email']);
+        $visitor_email = filter_var($visitor_email, FILTER_VALIDATE_EMAIL);
+        $email_body .= "<div>
+                           <label><b>Visitor Email:</b></label>&nbsp;<span>".$email."</span>
+                        </div>";
+    }
+      
+      
+    if(isset($_POST['need'])) {
+        $need = filter_var($_POST['need'], FILTER_SANITIZE_STRING);
+        $email_body .= "<div>
+                           <label><b>Reason for contact:</b></label>&nbsp;<span>".$need."</span>
+                        </div>";
+    }
+      
+    if(isset($_POST['message'])) {
+        $message = htmlspecialchars($_POST['message']);
+        $email_body .= "<div>
+                           <label><b> Message:</b></label>
+                           <div>".$message."</div>
+                        </div>";
+    }
+      
+    if($need == "Requset quotation") {
+        $recipient = "chinxzypoet@gmail.com";
+    }
+    else if($need == "Request order status") {
+        $recipient = "chinxzypoet@gmail.com";
+    }
+    else if($need == "Request copy of invoice") {
+        $recipient = "chinxzypoet@gmail.com";
+    }
+    else if($need == "other") {
+        $recipient = "chinxzypoet@gmail.com";
+    }
+    else {
+        $recipient = "chinxzypoet@gmail.com";
+    }
+      
+    $email_body .= "</div>";
+ 
+    $headers  = 'MIME-Version: 1.0' . "\r\n"
+    .'Content-type: text/html; charset=utf-8' . "\r\n"
+    .'From: ' . $email . "\r\n";
+      
+    if(mail($recipient, $email, $email_body, $headers)) {
+        echo "<p>Thank you for contacting us, $name. You will get a reply within 24 hours.</p>";
+    } else {
+        echo '<p>We are sorry but the email did not go through.</p>';
+    }
+      
+} else {
+    echo '<p>Something went wrong</p>';
 }
 ?>
