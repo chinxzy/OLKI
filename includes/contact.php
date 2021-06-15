@@ -1,4 +1,23 @@
 <?php
+require("../vendor/autoload.php");
+require("../config.php");
+
+// dummy content
+// $_POST['name'] = "name";
+// $_POST['surname'] = "surname";
+// $_POST['email'] = "ojinakatochukwu@gmail.com";
+// $_POST['need'] = "other";
+// $_POST['message'] = "dummy message";
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+var_dump($_POST);
+// die();
+
 if($_POST) {
     $name = "";
     $surname= "";
@@ -7,7 +26,7 @@ if($_POST) {
     $message = "";
     $email_body = "<div>";
       
-    if(isset($_POST['name'])) {
+    if(isset($_POST['name'])) { 
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
         $email_body .= "<div>
                            <label><b>First Name:</b></label>&nbsp;<span>".$name."</span>
@@ -44,21 +63,21 @@ if($_POST) {
                            <div>".$message."</div>
                         </div>";
     }
-      
-    if($need == "Requset quotation") {
-        $recipient = "chinxzypoet@gmail.com";
+    $tempReciever = "ojinakatochukwu@gmail.com";
+    if($need == "Request quotation") {
+        $recipient = $tempReciever;
     }
     else if($need == "Request order status") {
-        $recipient = "chinxzypoet@gmail.com";
+        $recipient = $tempReciever;
     }
     else if($need == "Request copy of invoice") {
-        $recipient = "chinxzypoet@gmail.com";
+        $recipient = $tempReciever;
     }
     else if($need == "other") {
-        $recipient = "chinxzypoet@gmail.com";
+        $recipient = $tempReciever;
     }
     else {
-        $recipient = "chinxzypoet@gmail.com";
+        $recipient = $tempReciever;
     }
       
     $email_body .= "</div>";
@@ -66,11 +85,42 @@ if($_POST) {
     $headers  = 'MIME-Version: 1.0' . "\r\n"
     .'Content-type: text/html; charset=utf-8' . "\r\n"
     .'From: ' . $email . "\r\n";
-      
-    if(mail($recipient, $email, $email_body, $headers)) {
-        echo "<p>Thank you for contacting us, $name. You will get a reply within 24 hours.</p>";
-    } else {
-        echo '<p>We are sorry but the email did not go through.</p>';
+
+    $visitorDetails = [
+        "name" => $name,
+        "surname" => $surname,
+        "email" => $email,
+        "need" => $need,
+        "message" => $message,
+    ];
+
+    // var_dump($visitorDetails);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_CONNECTION;               
+        $mail->isSMTP();                         
+        $mail->SMTPAuth   = true;                           
+        $mail->Port       = $smtpConfig["outgoingImapPort"];                                   
+        $mail->Host       = $smtpConfig["outgoingImapServer"];                     
+        $mail->Username   = $smtpConfig["username"];
+        $mail->Password   = $smtpConfig["password"];          
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    
+        //Recipients
+        $mail->From = $mail->Username;
+        // $mail->setFrom($smtpConfig["username"], 'OLKI');
+        $mail->addAddress($tempReciever, 'Temp Reciever');     //Add a recipient
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'OLKI Contact Form';
+        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        // echo "Message could not be sent";
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
       
 } else {
