@@ -63,21 +63,22 @@ if($_POST) {
                            <div>".$message."</div>
                         </div>";
     }
-    $tempReciever = "ojinakatochukwu@gmail.com";
+    $visitor_email = $_POST['email'];
+    $admin_email = "Olkielectromechanical@yahoo.co.uk";
     if($need == "Request quotation") {
-        $recipient = $tempReciever;
+        $recipient = $visitor_email;
     }
     else if($need == "Request order status") {
-        $recipient = $tempReciever;
+        $recipient = $visitor_email;
     }
     else if($need == "Request copy of invoice") {
-        $recipient = $tempReciever;
+        $recipient = $visitor_email;
     }
     else if($need == "other") {
-        $recipient = $tempReciever;
+        $recipient = $visitor_email;
     }
     else {
-        $recipient = $tempReciever;
+        $recipient = $visitor_email;
     }
       
     $email_body .= "</div>";
@@ -98,7 +99,7 @@ if($_POST) {
 
     try {
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_CONNECTION;               
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;               
         $mail->isSMTP();                         
         $mail->SMTPAuth   = true;                           
         $mail->Port       = $smtpConfig["outgoingImapPort"];                                   
@@ -110,17 +111,28 @@ if($_POST) {
         //Recipients
         $mail->From = $mail->Username;
         // $mail->setFrom($smtpConfig["username"], 'OLKI');
-        $mail->addAddress($tempReciever, 'Temp Reciever');     //Add a recipient
+        $mail->addAddress($recipient);     //Add a recipient
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'OLKI Contact Form';
-        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $mail->Subject = 'Thank You For Contacting Us';
+        $mail->Body    = 'Your Message has been received';
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
-        echo 'Message has been sent';
+        
+        echo 'Message 1 has been sent';
+        
+        $mail->ClearAllRecipients();
+        $mail->addAddress($admin_email);     //Add a recipient
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'New Contact Form Submission';
+        $mail->Body    = $email_body;
+        $mail->AltBody = $mail->Body;
+        $mail->send();
+        echo 'Message 2 has been sent';
     } catch (Exception $e) {
-        // echo "Message could not be sent";
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+         echo "Message could not be sent";
+        // "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
       
 } else {
