@@ -1,6 +1,6 @@
 <?php
 require("../vendor/autoload.php");
-require("../config.php");
+require("../utils/config.php");
 
 // dummy content
 // $_POST['name'] = "name";
