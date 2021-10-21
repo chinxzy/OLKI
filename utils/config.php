@@ -14,3 +14,9 @@ $smtpConfig = [
     // "password" => "otakonEmailPassword0000@@@@",
 ];
 
+$database_config = [
+    "database_hostname" => "localhost",
+    "database_name" => "olki",
+    "username" => "tobecci",
+    "password" => "tobecci",
+];
